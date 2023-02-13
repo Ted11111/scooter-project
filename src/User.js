@@ -21,7 +21,7 @@ class User {
         if (pass === scooterApp.registeredUsers[i]["password"]){
           console.log("Login Successful");
           self.loggedIn = true
-          scooterApp.registeredUsers[i]["loggedIn"] = true
+          scooterApp.loginUser(self.username, self.password)
           break;
         } else {
           throw new Error("Incorrect Password");
@@ -39,10 +39,14 @@ class User {
   }
 
   logout(){
-    //Code Goes here
+    const self = this
+    if(self.loggedIn == true){
+      self.loggedIn = false
+      scooterApp.logoutUser(self.username)
+    }else{
+      throw new console.error("User not logged in.");
+    }
   }
 }
-const newUser = new User("Teddy", "Password", 18)
 
-newUser.login("Password")
 module.exports = User
